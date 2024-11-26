@@ -83,10 +83,11 @@ https://g-otkk6267.coding.net/public-artifacts/Charts/safeline-lts/packages
 
 https://g-otkk6267-helm.pkg.coding.net/Charts/safeline-lts
 
-- Install the SafeLine helm chart with a release name `safeline`:
+- Install the SafeLine helm chart with a release name `safeline-lts`:
 ```bash
 helm repo add safeline https://g-otkk6267-helm.pkg.coding.net/Charts/safeline-lts
-helm -n safeline upgrade safeline safeline/safeline
+helm -n safeline upgrade safeline safeline-lts/safeline-lts
+helm fetch --version 7.1.1 safeline-lts/safeline-lts
 ```
 
 ## Uninstallation

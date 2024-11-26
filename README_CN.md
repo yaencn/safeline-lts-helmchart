@@ -45,7 +45,7 @@ mv ./assets/index.yaml ./index.yaml
 
 cd ./assets/safeline/
 
-helm coding-push safeline-lts-${app-version}.tgz safeline
+helm coding-push safeline-lts-${app-version}.tgz safeline-lts
 ```
 
 ## ----- Installation Remind -----
@@ -85,4 +85,8 @@ https://g-otkk6267.coding.net/public-artifacts/Charts/safeline-lts/packages
 https://g-otkk6267-helm.pkg.coding.net/Charts/safeline-lts
 
 - 举例：
+
+```shell
 helm repo add safeline https://g-otkk6267-helm.pkg.coding.net/Charts/safeline-lts
+helm fetch --version 7.1.1 safeline-lts/safeline-lts
+```

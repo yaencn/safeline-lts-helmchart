@@ -16,4 +16,4 @@ sources:
 - https://github.com/yaencn/safeline-lts-helmchart.git
 - https://gitee.com/andyhau/safeline-lts-helmchart.git
 - https://g-otkk6267.coding.net/public-artifacts/Charts/safeline-lts/packages
-version: 7.1.1-lts
+version: 7.1.1
