@@ -13,7 +13,8 @@ spec:
         paths:
           - backend:
               service:
-                name: {{ template "safeline.mgt" . }}
+                name: safeline-mgt
+                #name: {{ template "safeline.mgt" . }}
                 port:
                   number: {{ template "safeline.mgt.web.port" . }}
             path: {{ .Values.global.ingress.path }}

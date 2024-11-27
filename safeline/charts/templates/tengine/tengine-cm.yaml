@@ -9,12 +9,12 @@ data:
   safeline_k8s.conf: |
     upstream detector_server {
         keepalive   256;
-        server      safeline-detector:8000;
+        server      safeline-detector:{{ template "safeline.detector.tcd.port" . }};
     }
 
     upstream chaos_server {
         keepalive   256;
-        server      safeline-chaos:23333;
+        server      safeline-chaos:{{ template "safeline.stpp.port" . }};
     }
 
     t1k_intercept @safeline; # enable request detection

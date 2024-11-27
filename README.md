@@ -17,6 +17,9 @@ This branch is the LTS (Long Term Support) stable version branch, and only conta
 To use the preview version, please visit the following GIT repository:
 https://github.com/yaencn/safeline-helmchart
 
+- LTS Repository for github
+https://github.com/yaencn/safeline-lts-helmchart
+
 Acceleration address of GIT warehouse in Chinese Mainland:
 
 - Preview Repository

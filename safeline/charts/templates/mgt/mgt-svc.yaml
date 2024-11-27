@@ -1,7 +1,8 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: "{{ template "safeline.mgt" . }}"
+  name: safeline-mgt
+  #name: "{{ template "safeline.mgt" . }}"
   labels:
 {{ include "safeline.labels" . | indent 4 }}
 spec:
