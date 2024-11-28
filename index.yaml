@@ -3,11 +3,11 @@ entries:
   safeline-lts:
   - apiVersion: v1
     appVersion: 7.1.1-lts
-    created: "2024-11-28T09:34:45.42387+08:00"
+    created: "2024-11-28T09:42:35.461388+08:00"
     description: A free WAF that is simple enough, easy to use, and strong enough.
       Based on the industry's leading semantic engine detection technology, it acts
       as a reverse proxy access to protect your website from hackers.
-    digest: 8b179fcf3ab2a694fc62be74b5f1bf26a01cee5de5cea595068656044bf8f449
+    digest: f543d05523b01f588947777b6a68da2820874c265fbfd355d2ac411fdf2d1c6a
     home: https://waf-ce.chaitin.cn/
     icon: https://waf-ce.chaitin.cn/images/safeline.svg
     keywords:
@@ -26,4 +26,4 @@ entries:
     urls:
     - assets/safeline/safeline-lts-7.1.1.tgz
     version: 7.1.1
-generated: "2024-11-28T09:34:45.422566+08:00"
+generated: "2024-11-28T09:42:35.460249+08:00"
