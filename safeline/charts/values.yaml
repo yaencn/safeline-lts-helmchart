@@ -144,7 +144,7 @@ mgt:
     repository: safeline-mgt-lts
     tag: ""
   service:
-    type: ClusterIP
+    type: NodePort
     web:
       nodePort: 31443
   resources:
