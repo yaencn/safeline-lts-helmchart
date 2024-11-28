@@ -28,6 +28,28 @@ https://gitee.com/andyhau/safeline-helmchart.git
 https://gitee.com/andyhau/safeline-lts-helmchart.git
 
 
+## ----- HelmChart Install -----
+
+- HelmChart网页地址:
+https://g-otkk6267.coding.net/public-artifacts/Charts/safeline-lts/packages
+
+- HelmChart仓库地址:
+https://g-otkk6267-helm.pkg.coding.net/Charts/safeline-lts
+
+- 举例：
+
+```shell
+# add repo
+helm repo add safeline-lts https://g-otkk6267-helm.pkg.coding.net/Charts/safeline-lts
+# install sample
+helm install safeline-lts --namespace safeline --set global.ingress.enabled=true --set global.ingress.hostname="waf.local"  safeline-lts/safeline-lts
+# upgrade
+helm -n safeline upgrade safeline-lts safeline-lts/safeline-lts
+# fetch chart
+helm fetch --version 7.1.1 safeline-lts/safeline-lts
+# uninstall
+helm -n safeline uninstall safeline-lts
+```
 
 ## ----- Helm Build -----
 
@@ -65,31 +87,17 @@ WAF控制台web界面可通过nginx-ingress绑定域名,具体参加values.yaml�
 
 ```yaml
   # 设置雷池WAF控制台通过域名访问，如：demo.waf-ce.chaitin.cn
-  ingress:
-    # 是否开启雷池WAF控制通过域名访问，默认未开启
-    enabled: true
-    hostname: waf.local
-    ingressClassName: nginx
-    pathType: ImplementationSpecific
-    path: /
-    tls:
-      # 是否加载HelmChart外部的HTTPS域名证书的Secret.
-      # 如果有则请填写Secret名称，默认不填写及域名仅开启http访问.
-      # 如填写如下项，请在运行该HelmChart前创建好对应的Secret。
-      secretName: "waf-xxx-com-tls"
-```
-
-## ----- HelmChart Install -----
-
-- HelmChart网页地址:
-https://g-otkk6267.coding.net/public-artifacts/Charts/safeline-lts/packages
-
-- HelmChart仓库地址:
-https://g-otkk6267-helm.pkg.coding.net/Charts/safeline-lts
-
-- 举例：
-
-```shell
-helm repo add safeline https://g-otkk6267-helm.pkg.coding.net/Charts/safeline-lts
-helm fetch --version 7.1.1 safeline-lts/safeline-lts
+  global:
+    ingress:
+      # 是否开启雷池WAF控制通过域名访问，默认未开启
+      enabled: true
+      hostname: waf.local
+      ingressClassName: nginx
+      pathType: ImplementationSpecific
+      path: /
+      tls:
+        # 是否加载HelmChart外部的HTTPS域名证书的Secret.
+        # 如果有则请填写Secret名称，默认不填写及域名仅开启http访问.
+        # 如填写如下项，请在运行该HelmChart前创建好对应的Secret。
+        secretName: "waf-xxx-com-tls"
 ```

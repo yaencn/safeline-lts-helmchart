@@ -28,7 +28,28 @@ https://gitee.com/andyhau/safeline-helmchart.git
 - LTS Repository
 https://gitee.com/andyhau/safeline-lts-helmchart.git
 
+## ----- HelmChart Install -----
 
+- HelmChart Web URL:
+https://g-otkk6267.coding.net/public-artifacts/Charts/safeline-lts/packages
+
+- HelmChart Repo URL:
+https://g-otkk6267-helm.pkg.coding.net/Charts/safeline-lts
+
+- Sample：
+
+```shell
+# add repo
+helm repo add safeline-lts https://g-otkk6267-helm.pkg.coding.net/Charts/safeline-lts
+# install sample
+helm install safeline-lts --namespace safeline --set global.ingress.enabled=true --set global.ingress.hostname="waf.local"  safeline-lts/safeline-lts
+# upgrade
+helm -n safeline upgrade safeline-lts safeline-lts/safeline-lts
+# fetch chart
+helm fetch --version 7.1.1 safeline-lts/safeline-lts
+# uninstall
+helm -n safeline uninstall safeline-lts
+```
 
 
 ## ----- Helm Build -----
@@ -68,32 +89,18 @@ Specifically participate in the values.yaml file.
 ```yaml
   # Set up the SafeLine WAF console to be accessed through a domain name.
   # For example: demowaf-ce.chaitin.cn
-  ingress:
-    # Whether to enable SafeLine WAF control for domain access.
-    # It is not enabled by default
-    enabled: true
-    hostname: waf.local
-    ingressClassName: nginx
-    pathType: ImplementationSpecific
-    path: /
-    tls:
-      # Whether to load the Secret of the HTTPS domain name certificate outside HelmChart. 
-      #If yes, please fill in the Secret name. By default, it is not filled in and the domain name only enables http access.
-      # If you fill in the following items, please create the corresponding Secret before running the HelmChart.
-      secretName: "waf-xxx-com-tls"
-```
-
-## ----- HelmChart Install -----
-
-- HelmChart Web URL:
-https://g-otkk6267.coding.net/public-artifacts/Charts/safeline-lts/packages
-
-- HelmChart Repo URL:
-https://g-otkk6267-helm.pkg.coding.net/Charts/safeline-lts
-
-- Sample：
-
-```shell
-helm repo add safeline https://g-otkk6267-helm.pkg.coding.net/Charts/safeline-lts
-helm fetch --version 7.1.1 safeline-lts/safeline-lts
+  global:
+    ingress:
+      # Whether to enable SafeLine WAF control for domain access.
+      # It is not enabled by default
+      enabled: true
+      hostname: waf.local
+      ingressClassName: nginx
+      pathType: ImplementationSpecific
+      path: /
+      tls:
+        # Whether to load the Secret of the HTTPS domain name certificate outside HelmChart. 
+        #If yes, please fill in the Secret name. By default, it is not filled in and the domain name only enables http access.
+        # If you fill in the following items, please create the corresponding Secret before running the HelmChart.
+        secretName: "waf-xxx-com-tls"
 ```
