@@ -48,9 +48,8 @@ spec:
         volumeMounts:
           - mountPath: /resources/detector
             name: detector
-          - mountPath: /logs
+          - mountPath: /logs/detector
             name: logs
-            subPath: detector
       {{- end }}
       containers:
       - name: detector
@@ -63,15 +62,14 @@ spec:
             containerPort: {{ template "safeline.detector.sns.port" . }}
           - name: koopa
             containerPort: {{ template "safeline.detector.koopa.port" . }}
-        env:
-          - name: LOG_DIR
-            value: /logs/detector
+        envFrom:
+        - configMapRef:
+            name: {{ template "safeline.detector.env" . }}
         volumeMounts:
           - mountPath: /resources/detector
             name: detector
-          - mountPath: /logs
+          - mountPath: /logs/detector
             name: logs
-            subPath: detector
           - name: localtime
             mountPath: /etc/localtime
             readOnly: true
@@ -98,7 +96,7 @@ spec:
             claimName: {{ .Values.persistence.persistentVolumeClaim.detector.existingClaim | default (include "safeline.detector" .) }}
         - name: logs
           persistentVolumeClaim:
-            claimName: {{ .Values.persistence.persistentVolumeClaim.logs.existingClaim | default (include "safeline.logs" .) }}
+            claimName: {{ .Values.persistence.persistentVolumeClaim.detectorLogs.existingClaim | default (include "safeline.detector-logs" .) }}
         {{- else -}}
         - name: detector
           emptyDir: {}

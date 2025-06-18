@@ -7,7 +7,7 @@
 {{- if .Values.fullnameOverride }}
 {{- .Values.fullnameOverride | trunc 63 | trimSuffix "-" }}
 {{- else }}
-{{- $name := default "safeline-lts" .Values.nameOverride }}
+{{- $name := default "safeline" .Values.nameOverride }}
 {{- if contains $name .Release.Name }}
 {{- .Release.Name | trunc 63 | trimSuffix "-" }}
 {{- else }}
@@ -107,10 +107,12 @@ postgres://{{ template "safeline.database.username" . }}:{{ template "safeline.d
 
 
 {{/* logs */}}
-{{- define "safeline.logs" -}}
-  {{- printf "%s-logs" (include "safeline.fullname" .) -}}
+{{- define "safeline.detector-logs" -}}
+  {{- printf "%s-detector-logs" (include "safeline.fullname" .) -}}
 {{- end -}}
-
+{{- define "safeline.tengine-logs" -}}
+  {{- printf "%s-tengine-logs" (include "safeline.fullname" .) -}}
+{{- end -}}
 
 {{/* nginx */}}
 {{- define "safeline.nginx" -}}
@@ -121,6 +123,10 @@ postgres://{{ template "safeline.database.username" . }}:{{ template "safeline.d
 {{/* mgt */}}
 {{- define "safeline.mgt" -}}
   {{- printf "%s-mgt" (include "safeline.fullname" .) -}}
+{{- end -}}
+
+{{- define "safeline.mgt.env" -}}
+  {{- printf "%s-mgt-env" (include "safeline.fullname" .) -}}
 {{- end -}}
 
 {{- define "safeline.mgt.api.port" -}}
@@ -149,6 +155,10 @@ https://{{ template "safeline.mgt" . }}:{{ template "safeline.mgt.web.port" . }}
   {{- printf "%s-detector" (include "safeline.fullname" .) -}}
 {{- end -}}
 
+{{- define "safeline.detector.env" -}}
+  {{- printf "%s-detector-env" (include "safeline.fullname" .) -}}
+{{- end -}}
+
 {{- define "safeline.detector.tcd.port" -}}
     {{- printf "8000" -}}
 {{- end -}}
@@ -171,6 +181,10 @@ https://{{ template "safeline.mgt" . }}:{{ template "safeline.mgt.web.port" . }}
   {{- printf "%s-tengine" (include "safeline.fullname" .) -}}
 {{- end -}}
 
+{{- define "safeline.tengine.env" -}}
+  {{- printf "%s-tengine-env" (include "safeline.fullname" .) -}}
+{{- end -}}
+
 {{- define "safeline.tengine.health.port" -}}
     {{- printf "65443" -}}
 {{- end -}}
@@ -189,6 +203,10 @@ https://{{ template "safeline.mgt" . }}:{{ template "safeline.mgt.web.port" . }}
   {{- printf "%s-fvm" (include "safeline.fullname" .) -}}
 {{- end -}}
 
+{{- define "safeline.fvm.env" -}}
+  {{- printf "%s-fvm-env" (include "safeline.fullname" .) -}}
+{{- end -}}
+
 {{- define "safeline.fvm.api.port" -}}
     {{- printf "9004" -}}
 {{- end -}}
@@ -203,6 +221,10 @@ https://{{ template "safeline.mgt" . }}:{{ template "safeline.mgt.web.port" . }}
   {{- printf "%s-luigi" (include "safeline.fullname" .) -}}
 {{- end -}}
 
+{{- define "safeline.luigi.env" -}}
+  {{- printf "%s-luigi-env" (include "safeline.fullname" .) -}}
+{{- end -}}
+
 {{- define "safeline.luigi.port" -}}
     {{- printf "80" -}}
 {{- end -}}
@@ -213,10 +235,30 @@ https://{{ template "safeline.mgt" . }}:{{ template "safeline.mgt.web.port" . }}
   {{- printf "%s-chaos" (include "safeline.fullname" .) -}}
 {{- end -}}
 
+{{- define "safeline.chaos.env" -}}
+  {{- printf "%s-chaos-env" (include "safeline.fullname" .) -}}
+{{- end -}}
+
 {{- define "safeline.http.port" -}}
     {{- printf "9000" -}}
 {{- end -}}
 
+{{- define "safeline.challenge.port" -}}
+    {{- printf "8080" -}}
+{{- end -}}
+
 {{- define "safeline.stpp.port" -}}
     {{- printf "23333" -}}
+{{- end -}}
+
+{{- define "safeline.wrapi.port" -}}
+    {{- printf "9001" -}}
+{{- end -}}
+
+{{- define "safeline.wrtcp.port" -}}
+    {{- printf "9002" -}}
+{{- end -}}
+
+{{- define "safeline.authserve.port" -}}
+    {{- printf "8088" -}}
 {{- end -}}

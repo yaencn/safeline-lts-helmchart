@@ -43,7 +43,7 @@ spec:
           - sh
           - -c
           - |-
-            rm -rf /app/data/lost+found && while true; do sleep 3 && nc -zvw1 {{ template "safeline.database.host" . }} 5432 && nc -zvw1 safeline-fvm 80 && exit 0 || sleep 3; done; exit 1
+            rm -rf /app/data/lost+found && while true; do sleep 3 && nc -zvw1 safeline-pg 5432 && nc -zvw1 safeline-fvm 80 && exit 0 || sleep 3; done; exit 1
         volumeMounts:
           - mountPath: /app/data
             name: mgt
@@ -58,12 +58,9 @@ spec:
             containerPort: {{ template "safeline.mgt.api.port" . }}
           - name: tcd
             containerPort: {{ template "safeline.mgt.tcd.port" . }}
-        env:
-          - name: MGT_PG
-            value: {{ template "safeline.database.url" . }}
-          - name: TCD_TASK_ADDRESS
-            value: safeline-tengine:{{ template "safeline.tengine.tasktcd.port" . }}
-            #value: {{ template "safeline.tengine" . }}:{{ template "safeline.tengine.tasktcd.port" . }}
+        envFrom:
+        - configMapRef:
+            name: {{ template "safeline.mgt.env" . }}
         volumeMounts:
           - mountPath: /app/data
             name: mgt
@@ -71,8 +68,7 @@ spec:
             mountPath: /etc/localtime
             readOnly: true
           - name: nginx-log
-            mountPath: /app/log
-            subPath: nginx
+            mountPath: /app/log/nginx
           - name: safeline-sock-dir
             mountPath: /app/run
         livenessProbe:
@@ -109,7 +105,7 @@ spec:
             claimName: {{ .Values.persistence.persistentVolumeClaim.mgt.existingClaim | default (include "safeline.mgt" .) }}
         - name: nginx-log
           persistentVolumeClaim:
-            claimName: {{ .Values.persistence.persistentVolumeClaim.logs.existingClaim | default (include "safeline.logs" .) }}
+            claimName: {{ .Values.persistence.persistentVolumeClaim.tengineLogs.existingClaim | default (include "safeline.tengine-logs" .) }}
         - name: safeline-sock-dir
           emptyDir: {}
         {{- else -}}

@@ -5,6 +5,7 @@ metadata:
   name: waf-dashboard-domain-ingress
   annotations:
     nginx.ingress.kubernetes.io/backend-protocol: HTTPS
+    nginx.ingress.kubernetes.io/proxy-body-size: {{ .Values.global.ingress.annotations.proxyBodySize }}
 spec:
   ingressClassName: {{ .Values.global.ingress.ingressClassName | quote }}
   rules:
@@ -13,8 +14,7 @@ spec:
         paths:
           - backend:
               service:
-                name: safeline-mgt
-                #name: {{ template "safeline.mgt" . }}
+                name: {{ template "safeline.mgt" . }}
                 port:
                   number: {{ template "safeline.mgt.web.port" . }}
             path: {{ .Values.global.ingress.path }}

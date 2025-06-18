@@ -52,15 +52,9 @@ spec:
             containerPort: {{ template "safeline.tengine.http.port" . }}
           - name: tasktcd
             containerPort: {{ template "safeline.tengine.tasktcd.port" . }}
-        env:
-          - name: TCD_MGT_API
-            value: {{ template "safeline.mgt.api" . }}
-          - name: TCD_SNSERVER
-            value: {{ template "safeline.detector.tcd" . }}
-          - name: SNSERVER_ADDR
-            value: {{ template "safeline.detector.tcd" . }}
-          - name: TCD_TASK_ADDRESS
-            value: 0.0.0.0:{{ template "safeline.tengine.tasktcd.port" . }}
+        envFrom:
+        - configMapRef:
+            name: {{ template "safeline.tengine.env" . }}
         volumeMounts:
           - name: localtime
             mountPath: /etc/localtime
@@ -69,9 +63,8 @@ spec:
             name: nginx
           - mountPath: /resources/detector
             name: detector
-          - mountPath: /var/log
+          - mountPath: /var/log/nginx
             name: logs
-            #subPath: nginx
           - mountPath: /usr/local/nginx/cache
             name: cache
           - mountPath: /resources/chaos
@@ -111,7 +104,7 @@ spec:
             claimName: {{ .Values.persistence.persistentVolumeClaim.detector.existingClaim | default (include "safeline.detector" .) }}
         - name: logs
           persistentVolumeClaim:
-            claimName: {{ .Values.persistence.persistentVolumeClaim.logs.existingClaim | default (include "safeline.logs" .) }}
+            claimName: {{ .Values.persistence.persistentVolumeClaim.tengineLogs.existingClaim | default (include "safeline.tengine-logs" .) }}
         - name: cache
           persistentVolumeClaim:
             claimName: {{ .Values.persistence.persistentVolumeClaim.tengine.existingClaim | default (include "safeline.tengine" .) }}
