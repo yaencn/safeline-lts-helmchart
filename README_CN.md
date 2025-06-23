@@ -46,7 +46,7 @@ helm install safeline-lts --namespace safeline --set global.ingress.enabled=true
 # upgrade
 helm -n safeline upgrade safeline-lts safeline-lts/safeline-lts
 # fetch chart
-helm fetch --version 7.1.1 safeline-lts/safeline-lts
+helm fetch --version 1.0.0 safeline-lts/safeline-lts
 # uninstall
 helm -n safeline uninstall safeline-lts
 ```
