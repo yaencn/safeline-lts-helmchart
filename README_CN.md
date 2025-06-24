@@ -14,6 +14,7 @@
 **提醒：**
 
 此分支为LTS(长期支持)稳定版本分支，此分支中的仅包含LTS版本。
+LTS版本从8.8.0-lts开始，并同时支持国际版部署。
 如需使用预览版，请访问如下GIT仓库：
 https://github.com/yaencn/safeline-helmchart
 
@@ -27,6 +28,13 @@ https://gitee.com/andyhau/safeline-helmchart.git
 - LTS版仓库
 https://gitee.com/andyhau/safeline-lts-helmchart.git
 
+- 国际版本部署支持
+从appVersion为8.8.2开始支持x86_64架构的国际版部署支持，如需部署国际版本，请将value.yaml文件参数修改为如下值：
+
+`global.image.registry=chaitin`
+
+`global.image.region="-g"`
+
 
 ## ----- HelmChart Install -----
 
@@ -39,15 +47,27 @@ https://g-otkk6267-helm.pkg.coding.net/Charts/safeline-lts
 - 举例：
 
 ```shell
-# add repo
+# 添加helmchart repo仓库
 helm repo add safeline-lts https://g-otkk6267-helm.pkg.coding.net/Charts/safeline-lts
-# install sample
-helm install safeline-lts --namespace safeline --set global.ingress.enabled=true --set global.ingress.hostname="waf.local"  safeline-lts/safeline-lts
-# upgrade
+# 安装中文版举例
+helm install safeline-lts --namespace safeline \
+  --set global.ingress.enabled=true \
+  --set global.ingress.hostname="waf.local" \
+  safeline/safeline
+
+# 安装国际版举例
+helm install safeline-lts --namespace safeline \
+  --set global.ingress.enabled=true \
+  --set global.ingress.hostname="waf.local" \
+  --set global.image.registry=chaitin \
+  --set global.image.region="-g" \
+  safeline/safeline
+
+# 升级版本
 helm -n safeline upgrade safeline-lts safeline-lts/safeline-lts
-# fetch chart
+# 检出HelmChart包文件
 helm fetch --version 1.0.0 safeline-lts/safeline-lts
-# uninstall
+# 卸载版本
 helm -n safeline uninstall safeline-lts
 ```
 

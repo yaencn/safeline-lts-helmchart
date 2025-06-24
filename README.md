@@ -14,6 +14,7 @@
 **Reminder:**
 
 This branch is the LTS (Long Term Support) stable version branch, and only contains LTS versions.
+The LTS version starts from 8.8.0-lts and also supports international version deployment.
 To use the preview version, please visit the following GIT repository:
 https://github.com/yaencn/safeline-helmchart
 
@@ -28,6 +29,13 @@ https://gitee.com/andyhau/safeline-helmchart.git
 - LTS Repository
 https://gitee.com/andyhau/safeline-lts-helmchart.git
 
+- International version deployment support
+International version deployment support for the x86_64 architecture is supported starting from appVersion 8.8.0. If you need to deploy the international version, please modify the value.yaml file parameters to the following values:
+
+`global.image.registry=chaitin`
+
+`global.image.region="-g"`
+
 ## ----- HelmChart Install -----
 
 - HelmChart Web URL:
@@ -37,12 +45,23 @@ https://g-otkk6267.coding.net/public-artifacts/Charts/safeline-lts/packages
 https://g-otkk6267-helm.pkg.coding.net/Charts/safeline-lts
 
 - Sample：
-
 ```shell
 # add repo
 helm repo add safeline-lts https://g-otkk6267-helm.pkg.coding.net/Charts/safeline-lts
 # install sample
-helm install safeline-lts --namespace safeline --set global.ingress.enabled=true --set global.ingress.hostname="waf.local"  safeline-lts/safeline-lts
+helm install safeline-lts --namespace safeline \
+  --set global.ingress.enabled=true \
+  --set global.ingress.hostname="waf.local" \
+  safeline/safeline
+
+# install the International version
+helm install safeline-lts --namespace safeline \
+  --set global.ingress.enabled=true \
+  --set global.ingress.hostname="waf.local" \
+  --set global.image.registry=chaitin \
+  --set global.image.region="-g" \
+  safeline/safeline
+
 # upgrade
 helm -n safeline upgrade safeline-lts safeline-lts/safeline-lts
 # fetch chart
