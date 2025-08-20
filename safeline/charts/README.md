@@ -12,29 +12,29 @@ https://github.com/yaencn/safeline-lts-helmchart.git
 https://gitee.com/andyhau/safeline-lts-helmchart.git
 
 - HelmChart Web URL:
-https://g-otkk6267.coding.net/public-artifacts/Charts/safeline-lts/packages
+https://helm.yaencn.com/
 
 - HelmChart Repo URL:
 
-https://g-otkk6267-helm.pkg.coding.net/Charts/safeline-lts
+https://helm.yaencn.com/charts
 
 - Install the SafeLine helm chart with a release name `safeline-lts`:
 ```bash
 # add repo
-helm repo add safeline-lts https://g-otkk6267-helm.pkg.coding.net/Charts/safeline-lts
+helm repo add yaencn https://helm.yaencn.com/charts
 # install sample
-helm install safeline-lts --namespace safeline --set global.ingress.enabled=true --set global.ingress.hostname="waf.local"  safeline-lts/safeline-lts
+helm install safeline --namespace safeline --set global.ingress.enabled=true --set global.ingress.hostname="waf.local"  yaencn/safeline-lts
 # upgrade
-helm -n safeline upgrade safeline-lts safeline-lts/safeline-lts
+helm -n safeline upgrade safeline yaencn/safeline-lts
 # fetch chart
-helm fetch --version 1.0.0 safeline-lts/safeline-lts
+helm fetch --version 1.0.0 yaencn/safeline-lts
 ```
 
 ## Uninstallation
 
-To uninstall/delete the `safeline-lts` deployment:
+To uninstall/delete the `safeline` deployment:
 ```bash
-helm -n safeline uninstall safeline-lts
+helm -n safeline uninstall safeline
 ```
 
 

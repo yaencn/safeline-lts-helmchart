@@ -39,35 +39,42 @@ International version deployment support for the x86_64 architecture is supporte
 ## ----- HelmChart Install -----
 
 - HelmChart Web URL:
-https://g-otkk6267.coding.net/public-artifacts/Charts/safeline-lts/packages
+https://helm.yaencn.com
 
 - HelmChart Repo URL:
-https://g-otkk6267-helm.pkg.coding.net/Charts/safeline-lts
+
+This link will expire on September 1, 2025:
+
+https://g-otkk6267-helm.pkg.coding.net/Charts/safeline
+
+The latest helmchart warehouse address:
+
+https://helm.yaencn.com/charts
 
 - Sample：
 ```shell
 # add repo
-helm repo add safeline-lts https://g-otkk6267-helm.pkg.coding.net/Charts/safeline-lts
+helm repo add yaencn https://helm.yaencn.com/charts
 # install sample
-helm install safeline-lts --namespace safeline \
+helm install safeline --namespace safeline \
   --set global.ingress.enabled=true \
   --set global.ingress.hostname="waf.local" \
-  safeline/safeline
+  yaencn/safeline-lts
 
 # install the International version
-helm install safeline-lts --namespace safeline \
+helm install safeline --namespace safeline \
   --set global.ingress.enabled=true \
   --set global.ingress.hostname="waf.local" \
   --set global.image.registry=chaitin \
   --set global.image.region="-g" \
-  safeline/safeline
+  yaencn/safeline-lts
 
 # upgrade
-helm -n safeline upgrade safeline-lts safeline-lts/safeline-lts
+helm -n safeline upgrade safeline yaencn/safeline-lts
 # fetch chart
-helm fetch --version 1.0.0 safeline-lts/safeline-lts
+helm fetch --version 1.0.0 yaencn/safeline-lts
 # uninstall
-helm -n safeline uninstall safeline-lts
+helm -n safeline uninstall safeline
 ```
 
 
