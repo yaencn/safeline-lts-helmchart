@@ -1,5 +1,5 @@
 <h4 align="center">
-  SafeLine - TLS versions - HelmChart - Unofficial production
+  SafeLine - TLS Versions - HelmChart
 </h4>
 
 <p align="center">

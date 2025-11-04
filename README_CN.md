@@ -1,5 +1,5 @@
 <h4 align="center">
-  SafeLine - 雷池 - 长期支持TLS版本 - 自制HelmChart
+  SafeLine - 雷池 - 长期支持TLS版本 - HelmChart
 </h4>
 
 <p align="center">
